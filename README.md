@@ -1,4 +1,6 @@
-# corentinravoux.github.io — personal research site
+# corentinravoux.github.io
+
+Personal research site, served at <https://corentinravoux.github.io>.
 
 Static HTML/CSS with one small script. No framework, no build step for the pages
 themselves: GitHub Pages serves the files as they are.
