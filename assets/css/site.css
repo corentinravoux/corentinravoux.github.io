@@ -1,0 +1,177 @@
+/* Corentin Ravoux — personal research site
+   Palette sampled from the dark-matter field image used in the hero.        */
+
+:root {
+  --void:      #060d18;   /* page ground, the empty regions of the sim       */
+  --deep:      #0b1c2e;   /* panels                                          */
+  --filament:  #2f8f8a;   /* the teal of the cosmic web                      */
+  --mint:      #86e0b4;   /* the brightest halos                             */
+  --paper:     #e6edf3;
+  --muted:     #8aa2b2;
+  --signal:    #f77f00;   /* one accent only: the f(R) curve of my own plots */
+  --rule:      rgba(134, 224, 180, .18);
+
+  --display: "Newsreader", Georgia, serif;
+  --body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --rail: 116px;           /* width reserved for the redshift axis            */
+  --measure: 68ch;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--mint); text-decoration: none; }
+a:hover { color: var(--signal); }
+a:focus-visible,
+button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; }
+
+/* ---------------------------------------------------------------- redshift rail */
+.rail {
+  position: fixed; top: 0; left: 0; bottom: 0; width: var(--rail);
+  padding: 4rem 0; z-index: 20;
+  display: flex; flex-direction: column; justify-content: space-evenly;
+  font-family: var(--mono); font-size: .72rem;
+  border-right: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(6,13,24,.9), rgba(6,13,24,.75));
+  backdrop-filter: blur(6px);
+}
+.rail::before {                     /* the axis itself */
+  content: ""; position: absolute; left: 26px; top: 5rem; bottom: 5rem;
+  width: 1px; background: linear-gradient(180deg, var(--rule), var(--filament), var(--rule));
+}
+.rail__label {
+  position: absolute; left: 18px; font-size: .62rem; letter-spacing: .14em;
+  color: var(--muted); text-transform: uppercase;
+}
+.rail__label--top { top: 3.4rem; }
+.rail__label--bottom { bottom: 3.4rem; }
+
+.tick {
+  position: relative; display: flex; align-items: center; gap: .55rem;
+  padding: .5rem 0 .5rem 12px; color: var(--muted); white-space: nowrap;
+  transition: color .25s ease;
+}
+.tick::before {                     /* tick mark on the axis */
+  content: ""; width: 15px; height: 1px; background: currentColor; flex: none;
+  transition: width .25s ease, background .25s ease;
+}
+.tick span { opacity: .9; }
+.tick:hover { color: var(--mint); }
+.tick[aria-current="true"] { color: var(--signal); }
+.tick[aria-current="true"]::before { width: 26px; }
+
+/* --------------------------------------------------------------------- layout */
+.page { margin-left: var(--rail); }
+.wrap { width: min(var(--measure) + 12rem, 92vw); margin-inline: auto; padding-inline: 1.5rem; }
+
+section { padding-block: 7rem; border-top: 1px solid var(--rule); }
+section:first-of-type { border-top: 0; }
+
+.eyebrow {
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--filament); margin-bottom: 1.1rem;
+}
+.eyebrow b { color: var(--mint); font-weight: 500; }
+
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); margin: 0 0 1.4rem; line-height: 1.12; }
+h3 { font-size: 1.18rem; margin: 0 0 .35rem; }
+p { max-width: var(--measure); }
+.lede { font-size: 1.16rem; color: #cfdae4; }
+
+/* ----------------------------------------------------------------------- hero */
+.hero { position: relative; min-height: min(92vh, 900px); display: flex; align-items: center;
+        padding-block: 6rem 5rem; overflow: hidden; border-top: 0; }
+.hero__bg { position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(120% 90% at 30% 40%, #10314a 0%, #071324 55%, var(--void) 100%); }
+.hero__bg img { width: 100%; height: 100%; object-fit: cover; opacity: .55;
+  mix-blend-mode: screen; }
+.hero__bg::after {                  /* fade the field into the page */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(6,13,24,.35) 0%, rgba(6,13,24,.72) 62%, var(--void) 100%);
+}
+.hero .wrap { position: relative; z-index: 1; }
+
+.hero h1 {
+  font-size: clamp(3rem, 8.5vw, 6.4rem); line-height: .96; margin: 0 0 1.4rem;
+}
+.hero h1 em { font-style: italic; color: var(--mint); }
+.hero__thesis { font-size: clamp(1.1rem, 2vw, 1.42rem); color: #d6e2ec;
+  max-width: 40ch; margin-bottom: 2.2rem; }
+.meta { font-family: var(--mono); font-size: .78rem; color: var(--muted);
+  letter-spacing: .06em; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+.meta b { color: var(--paper); font-weight: 400; }
+
+/* -------------------------------------------------------------------- about */
+.about { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
+.portrait { width: 220px; aspect-ratio: 1/1.15; object-fit: cover; border-radius: 2px;
+  filter: grayscale(.15) contrast(1.03); border: 1px solid var(--rule); }
+.portrait--empty { display: grid; place-items: center; background: var(--deep);
+  font-family: var(--mono); font-size: .7rem; color: var(--muted); text-align: center; padding: 1rem; }
+
+/* ------------------------------------------------------------------- figures */
+figure { margin: 2.6rem 0 0; max-width: 640px; }
+figure img { width: 100%; display: block; border: 1px solid var(--rule); border-radius: 2px;
+  background: #fff; padding: 10px; }
+figcaption { font-family: var(--mono); font-size: .76rem; color: var(--muted);
+  margin-top: .7rem; max-width: var(--measure); line-height: 1.5; }
+
+/* --------------------------------------------------------------------- cards */
+.cards { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 2.2rem; }
+.card { background: var(--void); padding: 1.5rem 1.4rem; display: flex; flex-direction: column;
+  gap: .5rem; transition: background .2s ease; }
+.card:hover { background: var(--deep); }
+.card__name { font-family: var(--mono); font-size: .95rem; color: var(--mint); }
+.card p { font-size: .93rem; color: var(--muted); margin: 0; }
+.card__tag { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--filament); margin-top: auto; padding-top: .8rem; }
+
+/* -------------------------------------------------------------- publications */
+.pubs { list-style: none; margin: 2rem 0 0; padding: 0; }
+.pub { display: grid; grid-template-columns: 5.2rem 1fr; gap: 1.4rem;
+  padding: 1.05rem 0; border-top: 1px solid var(--rule); }
+.pub:last-child { border-bottom: 1px solid var(--rule); }
+.pub__year { font-family: var(--mono); font-size: .82rem; color: var(--filament); padding-top: .18rem; }
+.pub__title { display: block; color: var(--paper); }
+.pub__title:hover { color: var(--signal); }
+.pub__meta { font-family: var(--mono); font-size: .76rem; color: var(--muted); margin-top: .28rem; }
+.pub--lead .pub__year::after { content: " ●"; color: var(--signal); font-size: .6rem; vertical-align: .18em; }
+
+.actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2.4rem; }
+.btn { font-family: var(--mono); font-size: .8rem; letter-spacing: .06em;
+  border: 1px solid var(--rule); padding: .7rem 1.15rem; color: var(--paper);
+  transition: border-color .2s ease, color .2s ease, background .2s ease; }
+.btn:hover { border-color: var(--signal); color: var(--signal); background: rgba(247,127,0,.06); }
+
+/* -------------------------------------------------------------------- footer */
+footer { padding: 4.5rem 0 6rem; border-top: 1px solid var(--rule); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 1.6rem 2.6rem; align-items: baseline; }
+footer a { font-family: var(--mono); font-size: .85rem; }
+.colophon { font-family: var(--mono); font-size: .7rem; color: var(--muted);
+  margin-top: 2.5rem; max-width: var(--measure); line-height: 1.7; }
+
+/* -------------------------------------------------------------------- mobile */
+@media (max-width: 900px) {
+  .rail { display: none; }
+  .page { margin-left: 0; }
+  .about { grid-template-columns: 1fr; gap: 1.8rem; }
+  .portrait { width: 160px; }
+  section { padding-block: 4.5rem; }
+  .hero { min-height: 80vh; }
+}

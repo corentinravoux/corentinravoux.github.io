@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corentin Ravoux — cosmologist, CNRS</title>
+<meta name="description" content="Corentin Ravoux, CNRS researcher at LPCA Clermont-Auvergne. Growth of structure from peculiar velocities, Lyman-alpha forest cosmology, DESI, ZTF and Rubin-LSST.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='none' stroke='%2386e0b4' stroke-width='2'/><circle cx='16' cy='16' r='2' fill='%23f77f00'/></svg>">
+</head>
+<body>
+
+<!-- the rail is the spine of the page: my science runs from z = 0 to z ~ 3 -->
+<nav class="rail" aria-label="Sections, ordered by redshift">
+  <span class="rail__label rail__label--top">today</span>
+  <a class="tick" href="#top"><span>z = 0</span></a>
+  <a class="tick" href="#velocities"><span>z ≈ 0.05</span></a>
+  <a class="tick" href="#anisotropy"><span>z ≈ 0.1</span></a>
+  <a class="tick" href="#lya"><span>z ≈ 2.4</span></a>
+  <a class="tick" href="#code"><span>code</span></a>
+  <a class="tick" href="#papers"><span>papers</span></a>
+  <span class="rail__label rail__label--bottom">lookback</span>
+</nav>
+
+<main class="page" id="top">
+
+  <header class="hero">
+    <div class="hero__bg">
+      <img src="assets/img/cosmic-web.jpg" alt="" aria-hidden="true"
+           onerror="this.style.display='none'">
+    </div>
+    <div class="wrap">
+      <h1>Corentin<br>Ravoux</h1>
+      <p class="hero__thesis">I measure how cosmic structure <em>grows</em> and how fast the Universe
+        expands in every direction — from supernova velocities next door to the
+        Lyman-α forest ten billion years back.</p>
+      <div class="meta">
+        <span><b>Chargé de recherche</b>, CNRS</span>
+        <span>LPCA · Université Clermont-Auvergne</span>
+        <span>DESI · ZTF · Rubin-LSST DESC</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap about">
+      <img class="portrait" src="assets/img/portrait.jpg" alt="Corentin Ravoux"
+           onerror="this.outerHTML='&lt;div class=&quot;portrait portrait--empty&quot;&gt;portrait.jpg&lt;/div&gt;'">
+      <div>
+        <div class="eyebrow">About</div>
+        <p class="lede">I am a CNRS researcher at the Laboratoire de Physique de
+          Clermont-Auvergne, working on the large-scale structure of the Universe with
+          spectroscopic and photometric surveys.</p>
+        <p>I did my PhD on the Lyman-α forest, a postdoc at CPPM in Marseille on peculiar
+          velocities, and joined the CNRS in November 2023. My work sits at two ends of the
+          same axis: the local Universe, where supernova velocities measure how structure grows
+          today, and the high-redshift intergalactic medium, where the Lyman-α forest measures
+          the matter power spectrum on the smallest scales cosmology can reach.</p>
+        <p>I co-supervise PhD students and interns, lead the peculiar-velocity working group of
+          LSST-DESC, and write the analysis software my measurements run on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="velocities">
+    <div class="wrap">
+      <div class="eyebrow"><b>z ≈ 0.05</b> — the local Universe</div>
+      <h2>Growth of structure from peculiar velocities</h2>
+      <p class="lede">Galaxies fall towards mass. Measure that infall and you measure the growth
+        rate fσ₈ — a direct test of gravity on cosmological scales, independent of the expansion
+        history.</p>
+      <p>Type Ia supernovae are the sharpest distance indicators we have at low redshift, so the
+        residuals of their Hubble diagram carry the velocity field. I built a generalised
+        field-level likelihood framework for this measurement, released as
+        <a href="https://github.com/corentinravoux/flip">flip</a>, and used it to show that
+        combining ZTF supernova velocities with the DESI bright galaxy density field improves the
+        constraint on fσ₈ by 50% over velocities alone.</p>
+      <p>The same machinery drives forecasts for Rubin-LSST, where the supernova sample grows by
+        two orders of magnitude and systematics — photometric typing, host redshifts, intrinsic
+        scatter — take over from statistics.</p>
+      <figure>
+        <img src="assets/img/fsigma8.png" alt="Compilation of fσ₈ measurements from peculiar velocities against modified-gravity predictions" onerror="this.closest('figure').style.display='none'">
+        <figcaption>fσ₈ from peculiar velocities, against f(R) and nDGP predictions computed with
+          EFTCAMB. Both models leave the expansion history untouched, so growth is the only place
+          they can be caught.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="anisotropy">
+    <div class="wrap">
+      <div class="eyebrow"><b>z ≈ 0.1</b> — is the expansion the same everywhere?</div>
+      <h2>Anisotropy and cosmic dipoles</h2>
+      <p class="lede">The cosmological principle is an assumption, not a measurement. Supernovae
+        can test it directly.</p>
+      <p>The same Hubble-diagram residuals that give the velocity field also let you fit the
+        expansion rate direction by direction. The difficulty is that a coherent bulk flow mimics
+        an H₀ dipole almost perfectly, so the signal of one analysis is the contaminant of the
+        other. With ZTF simulations carrying both an injected dipole and a realistic velocity
+        field, we can quantify where the two separate — and where they cannot.</p>
+      <p>A parallel test uses source counts rather than distances: our motion should imprint a
+        known dipole on the number of quasars across the sky. It does not, at least not with the
+        expected amplitude, and that discrepancy is one of the sharper anomalies in cosmology
+        today. Rubin-LSST will provide the number counts to settle it.</p>
+    </div>
+  </section>
+
+  <section id="lya">
+    <div class="wrap">
+      <div class="eyebrow"><b>z ≈ 2.4</b> — the intergalactic medium</div>
+      <h2>The Lyman-α forest</h2>
+      <p class="lede">Every distant quasar is a backlight. The absorption lines along the way map
+        the neutral hydrogen between us and it, at scales no galaxy survey can reach.</p>
+      <p>I measure the one-dimensional Lyman-α power spectrum with DESI, using a Fast Fourier
+        Transform estimator I lead within the collaboration. P1D constrains the small-scale matter
+        power spectrum, and through it the mass of neutrinos, warm dark matter and the thermal
+        history of the intergalactic medium.</p>
+      <p>The measurement is only as good as the simulations behind it: with the ACCEL² project we
+        produced large-volume hydrodynamical runs to calibrate the effective-field-theory
+        parameters of the forest, and the first clear detection of the BAO peak in a hydrodynamic
+        simulation.</p>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="wrap">
+      <div class="eyebrow">Software</div>
+      <h2>Code I build and maintain</h2>
+      <p>Every measurement above ships as a package. They are open, documented and used by the
+        DESI, ZTF and LSST-DESC collaborations.</p>
+      <div class="cards">
+        <a class="card" href="https://github.com/corentinravoux/flip">
+          <span class="card__name">flip</span>
+          <p>Field-level likelihood inference of the growth rate from velocity and density fields.
+             Analytic wide-angle covariances, JAX acceleration, Fisher forecasts.</p>
+          <span class="card__tag">peculiar velocities</span>
+        </a>
+        <a class="card" href="https://github.com/corentinravoux/lelantos">
+          <span class="card__name">lelantos</span>
+          <p>Lyman-α tomography: flux contrast to 3D Wiener-filtered maps of the intergalactic
+             medium, and the voids inside them.</p>
+          <span class="card__tag">tomography</span>
+        </a>
+        <a class="card" href="https://github.com/corentinravoux/p1desi">
+          <span class="card__name">p1desi</span>
+          <p>One-dimensional power spectrum analysis of the DESI Lyman-α forest, from picca
+             outputs to cosmological constraints.</p>
+          <span class="card__tag">DESI Lyα</span>
+        </a>
+        <a class="card" href="https://github.com/corentinravoux/lyapower">
+          <span class="card__name">lyapower</span>
+          <p>Fitting 3D Lyman-α power spectra from Nyx hydrodynamical simulations, with splicing
+             across resolutions.</p>
+          <span class="card__tag">simulations</span>
+        </a>
+        <a class="card" href="https://github.com/corentinravoux/growth_review">
+          <span class="card__name">growth_review</span>
+          <p>Compiled fσ₈, BAO and S₈ constraints with the plotting layer behind the review
+             figures, plus an EFTCAMB modified-gravity backend.</p>
+          <span class="card__tag">compilation</span>
+        </a>
+        <a class="card" href="https://github.com/corentinravoux/lyavoid">
+          <span class="card__name">lyavoid</span>
+          <p>Cross-correlation of the Lyman-α forest with voids detected in tomographic maps.</p>
+          <span class="card__tag">voids</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="papers">
+    <div class="wrap">
+      <div class="eyebrow">Publications</div>
+      <h2>Recent papers</h2>
+      <p>Marked <span style="color:var(--signal)">●</span> where I led or co-led the analysis. The
+        full list is generated from INSPIRE-HEP.</p>
+      <!-- RECENT-PUBS -->
+      <ul class="pubs">
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2608.10080">Lyman Break Galaxy selection and redshift measurement with supervised contrastive learning</a>
+        <span class="pub__meta">preprint · Choppin de Janvry et al. (58 authors) · arXiv:2608.10080</span></span>
+    </li>
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2607.27411">Validation of the DESI DR2 Lyα forest full-shape analysis</a>
+        <span class="pub__meta">preprint · Herbold et al. (103 authors) · arXiv:2607.27411</span></span>
+    </li>
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2607.27390">Cosmic Pairs: A DESI Census of Dual and Offset AGN as Precursors to Massive Black Hole Binaries</a>
+        <span class="pub__meta">preprint · Dadiani et al. (54 authors) · arXiv:2607.27390</span></span>
+    </li>
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2607.27412">CoLoRe-2LPT: Lyman-α mock catalogues for the validation of DESI cosmological analyses</a>
+        <span class="pub__meta">preprint · Bernal et al. (93 authors) · arXiv:2607.27412</span></span>
+    </li>
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2607.27410">DESI DR2 Results IV: Alcock-Paczyński Measurements from the Lyman Alpha Forest and Cosmological Constraints</a>
+        <span class="pub__meta">preprint · Adame et al. (155 authors) · arXiv:2607.27410</span></span>
+    </li>
+    <li class="pub">
+      <span class="pub__year">2026</span>
+      <span><a class="pub__title" href="https://arxiv.org/abs/2607.27413">Lyman-α forest holography: 3D predictions from 1D measurements</a>
+        <span class="pub__meta">preprint · Chaves-Montero et al. (71 authors) · arXiv:2607.27413</span></span>
+    </li>
+      </ul>
+      <!-- /RECENT-PUBS -->
+      <div class="actions">
+        <a class="btn" href="publications.html">All publications →</a>
+        <a class="btn" href="https://inspirehep.net/authors/1888974">INSPIRE-HEP</a>
+        <a class="btn" href="https://arxiv.org/a/ravoux_c_1">arXiv</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <a href="mailto:corentin.ravoux.research@gmail.com">corentin.ravoux.research@gmail.com</a>
+      <a href="https://github.com/corentinravoux">github.com/corentinravoux</a>
+      <a href="https://inspirehep.net/authors/1888974">INSPIRE-HEP</a>
+      <a href="https://scholar.google.com/citations?user=qcvRqBAAAAAJ">Google Scholar</a>
+    </div>
+    <div class="wrap">
+      <p class="colophon">Laboratoire de Physique de Clermont-Auvergne, Université Clermont-Auvergne,
+        CNRS/IN2P3 — Clermont-Ferrand, France. The background field is a dark-matter simulation;
+        the redshift rail on the left is the range my work actually spans.</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="assets/js/rail.js" defer></script>
+</body>
+</html>
