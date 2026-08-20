@@ -56,7 +56,9 @@
   <a class="tick" href="#top"><span>z = 0</span></a>
   <a class="tick" href="#velocities"><span>z ≈ 0.05</span></a>
   <a class="tick" href="#anisotropy"><span>z ≈ 0.1</span></a>
+  <a class="tick" href="#bao"><span>z ≈ 0.3–2.3</span></a>
   <a class="tick" href="#lya"><span>z ≈ 2.4</span></a>
+  <a class="tick" href="#tomography"><span>z ≈ 2.3</span></a>
   <a class="tick" href="#code"><span>code</span></a>
   <a class="tick" href="#papers"><span>papers</span></a>
   <span class="rail__label rail__label--bottom">lookback</span>
@@ -145,6 +147,31 @@
     </div>
   </section>
 
+  <section id="bao">
+    <div class="wrap">
+      <div class="eyebrow"><b>z ≈ 0.3 – 2.3</b> — a standard ruler</div>
+      <h2>Baryon acoustic oscillations with DESI</h2>
+      <p class="lede">The sound horizon left a fixed length scale imprinted in the matter
+        distribution. Measuring it at many redshifts, with galaxies and with the Lyman-α forest,
+        turns it into a ruler for the expansion history.</p>
+      <p>Inside DESI I work on the Lyman-α side of that measurement: the catalogues and the
+        continuum-fitting pipeline the forest correlations are built from, and the validation that
+        keeps the peak position unbiased. That work runs through the DR1 and DR2 BAO analyses, and
+        into the galaxy and quasar measurements that anchor the low-redshift end of the ruler.</p>
+      <p>The question I lead on is how much astrophysics moves the peak. With the ACCEL²
+        simulations we measured the shift of the BAO position in the Lyman-α auto-correlation and
+        its cross-correlation with quasars, as a function of quasar bias and redshift, and found it
+        stays below a few tenths of a per cent — small compared with the statistical precision DESI
+        will reach, which is what makes the forest a trustworthy ruler at z ≈ 2.3.</p>
+      <figure>
+        <img src="assets/img/bao-shift.png" alt="Shift of the BAO peak position along and across the line of sight, as a function of redshift and quasar bias" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Systematic shift of the BAO peak in the Lyman-α × quasar cross-correlation,
+          along (top) and across (bottom) the line of sight, for a range of quasar biases. Below
+          0.3% everywhere. — <a href="https://arxiv.org/abs/2412.06892">arXiv:2412.06892</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section id="lya">
     <div class="wrap">
       <div class="eyebrow"><b>z ≈ 2.4</b> — the intergalactic medium</div>
@@ -159,6 +186,43 @@
         produced large-volume hydrodynamical runs to calibrate the effective-field-theory
         parameters of the forest, and the first clear detection of the BAO peak in a hydrodynamic
         simulation.</p>
+      <figure>
+        <img src="assets/img/p1d-desi.png" alt="DESI DR1 one-dimensional Lyman-alpha power spectrum in eleven redshift bins" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The DESI DR1 one-dimensional Lyman-α power spectrum, eleven redshift bins from
+          z = 2.2 to 4.2, measured with the FFT estimator I lead.
+          — <a href="https://arxiv.org/abs/2505.09493">arXiv:2505.09493</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="tomography">
+    <div class="wrap">
+      <div class="eyebrow"><b>z ≈ 2.3</b> — mapping, not just measuring</div>
+      <h2>Tomographic maps, and the voids inside them</h2>
+      <p class="lede">Enough quasar sightlines close enough together stop being a catalogue and
+        become a map. The forest turns into a three-dimensional picture of the intergalactic
+        medium.</p>
+      <p>Using the dense quasar sample of eBOSS Stripe 82, I reconstructed the flux-contrast field
+        between the sightlines with a Wiener filter, producing one of the first large tomographic
+        maps of the high-redshift matter distribution. The pipeline is open, as
+        <a href="https://github.com/corentinravoux/lelantos">lelantos</a>.</p>
+      <p>A map lets you ask questions a power spectrum cannot: where are the underdense regions?
+        We detected voids directly in the reconstructed field and measured their cross-correlation
+        with the forest — the first such measurement — recovering the void profile and its
+        redshift-space distortion, and confirming the voids trace real underdensities rather than
+        gaps in the sightline coverage.</p>
+      <figure style="max-width:100%">
+        <img src="assets/img/tomography-3d.png" alt="Three-dimensional rendering of the tomographic map of Stripe 82, showing overdense and underdense iso-surfaces" style="background:none;border:0;padding:0" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Stripe 82 tomographic map in three dimensions: iso-surfaces of the
+          reconstructed flux contrast, overdense in red, underdense in blue, across 1.5 Gpc/h.
+          — <a href="https://arxiv.org/abs/2004.01448">arXiv:2004.01448</a></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/void-lya.png" alt="Two-dimensional void–Lyman-alpha forest cross-correlation" onerror="this.closest('figure').style.display='none'">
+        <figcaption>First measurement of the cross-correlation between cosmic voids and the
+          Lyman-α forest, as a function of separation along and across the line of sight.
+          — <a href="https://arxiv.org/abs/2203.11045">arXiv:2203.11045</a></figcaption>
+      </figure>
     </div>
   </section>
 
