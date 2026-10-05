@@ -290,7 +290,7 @@ figcaption {
 .split p:first-child { margin-top: 0; }
 .split > figure { position: sticky; top: 3rem; }
 
-/* anisotropy: three recovered numbers, then the two probes side by side */
+/* anisotropy: three recovered numbers, then the method */
 .results {
   display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr);
   margin: 2.8rem 0 0; border-block: 1px solid var(--rule);
@@ -307,8 +307,8 @@ figcaption {
 .result__what { display: block; margin-top: .7rem; margin-bottom: 0; font-family: var(--mono); font-size: .76rem; color: var(--muted); }
 .results-note { font-family: var(--mono); font-size: .76rem; color: var(--muted); margin: .9rem 0 0; max-width: none; }
 
-.probes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 3.4rem; }
-.probes p { margin: 0; }
+.after-results { margin-top: 3rem; }
+.after-results p { margin: 0; }
 
 /* BAO: wide figure with its caption alongside, then two text columns */
 .figure--side {
@@ -419,13 +419,13 @@ footer a { font-family: var(--mono); font-size: .85rem; }
   .hero { min-height: 86dvh; padding-block: 5rem 4rem; }
   .about { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
   .portrait { max-width: 11rem; }
-  .facts, .split, .split--plate, .probes, .columns, .with-aside, .tools { grid-template-columns: minmax(0, 1fr); }
+  .facts, .split, .split--plate, .columns, .with-aside, .tools { grid-template-columns: minmax(0, 1fr); }
   .split { gap: 2.2rem; }
   .split > figure { position: static; }
   .results { grid-template-columns: minmax(0, 1fr); }
   .result, .result + .result { padding: 1.3rem 0; border-left: 0; }
   .result + .result { border-top: 1px solid var(--rule-soft); }
-  .probes, .columns { gap: 1.6rem; }
+  .columns { gap: 1.6rem; }
   .tool { grid-template-columns: minmax(0, 1fr); gap: .25rem; }
   .meta { flex-direction: column; }
   .meta li { padding-inline: 0; border-left: 0; }
