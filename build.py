@@ -37,6 +37,7 @@ TITLE_FIXES = {
     "Lymanα": "Lyman-α",
     "Ly α": "Lyα",
     "ACCEL2": "ACCEL²",
+    "eBOSS—Stripe 82": "eBOSS Stripe 82",
 }
 
 # Key papers signed by the collaboration as a whole (as in the HDR publication list);
@@ -112,7 +113,7 @@ def parse(data):
     return out
 
 
-def entry_html(p):
+def entry_html(p, repeat_year=False):
     link = f"https://arxiv.org/abs/{p['arxiv']}" if p["arxiv"] else "#"
     meta = p["journal"]
     if p["corporate"]:
@@ -124,7 +125,7 @@ def entry_html(p):
     if p["arxiv"]:
         meta += f" · arXiv:{p['arxiv']}"
     return (f'    <li class="pub{" pub--lead" if p["lead"] else ""}">\n'
-            f'      <span class="pub__year">{p["year"]}</span>\n'
+            f'      <span class="pub__year{" pub__year--repeat" if repeat_year else ""}">{p["year"]}</span>\n'
             f'      <span><a class="pub__title" href="{link}">{p["title"]}</a>\n'
             f'        <span class="pub__meta">{html.escape(meta)}</span></span>\n'
             f'    </li>')
@@ -132,48 +133,71 @@ def entry_html(p):
 
 def write_publications(pubs):
     lead = sum(p["lead"] for p in pubs)
-    body = "\n".join(entry_html(p) for p in pubs)
+    years = [p["year"] for p in pubs]
+    body = "\n".join(entry_html(p, repeat_year=i > 0 and years[i - 1] == p["year"])
+                     for i, p in enumerate(pubs))
     page = f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Publications — Corentin Ravoux</title>
+<title>Publications, Corentin Ravoux</title>
 <meta name="description" content="Publication list of Corentin Ravoux, CNRS researcher at the Laboratoire de Physique de Clermont Auvergne (LPCA).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://corentinravoux.github.io/publications.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Publications — Corentin Ravoux">
+<meta property="og:title" content="Publications, Corentin Ravoux">
 <meta property="og:description" content="Full publication list of Corentin Ravoux, CNRS researcher at the Laboratoire de Physique de Clermont Auvergne, generated from INSPIRE-HEP.">
 <meta property="og:url" content="https://corentinravoux.github.io/publications.html">
 <meta property="og:image" content="https://corentinravoux.github.io/assets/img/cosmic-web.jpg">
 <meta property="og:site_name" content="Corentin Ravoux">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Corentin Ravoux">
+<meta name="theme-color" content="#060d18">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='none' stroke='%2386e0b4' stroke-width='2'/><circle cx='16' cy='16' r='2' fill='%23f77f00'/></svg>">
 </head>
 <body>
-<main class="page" style="margin-left:0">
-  <section>
+<a class="skip" href="#list">Skip to the list</a>
+<main class="page page--plain">
+  <section aria-labelledby="pubs-title">
     <div class="wrap">
-      <div class="eyebrow">Publications</div>
-      <h2>{len(pubs)} papers</h2>
-      <p>{lead} with a major contribution from me, marked <span style="color:var(--signal)">●</span>.
-        The list is generated from INSPIRE-HEP and includes collaboration papers.</p>
+      <a class="link-quiet" href="index.html">Back to the home page</a>
+      <h1 id="pubs-title">Publications</h1>
+      <p>{len(pubs)} papers, {lead} of them with a major contribution from me, marked
+        <span class="mark-lead">●</span>. The list is generated from INSPIRE-HEP and includes
+        collaboration papers.</p>
       <div class="actions">
-        <a class="btn" href="index.html">← Home</a>
         <a class="btn" href="https://inspirehep.net/authors/{INSPIRE_RECID}">INSPIRE-HEP</a>
         <a class="btn" href="https://scholar.google.com/citations?user=qcvRqBAAAAAJ">Google Scholar</a>
+        <a class="btn" href="https://arxiv.org/a/ravoux_c_1">arXiv</a>
       </div>
-      <ul class="pubs">
+      <div class="filter" role="group" aria-label="Filter the list" hidden>
+        <button type="button" aria-pressed="true" data-filter="all">All papers ({len(pubs)})</button>
+        <button type="button" aria-pressed="false" data-filter="lead">Major contribution ({lead})</button>
+      </div>
+      <ul class="pubs" id="list">
 {body}
       </ul>
     </div>
   </section>
 </main>
+<script>
+  // Filter between all papers and the major-contribution ones. Hidden without JS.
+  (function () {{
+    var group = document.querySelector(".filter"), list = document.getElementById("list");
+    if (!group || !list) return;
+    group.hidden = false;
+    group.addEventListener("click", function (e) {{
+      var b = e.target.closest("button");
+      if (!b) return;
+      group.querySelectorAll("button").forEach(function (x) {{ x.setAttribute("aria-pressed", String(x === b)); }});
+      list.classList.toggle("pubs--lead-only", b.dataset.filter === "lead");
+    }});
+  }})();
+</script>
 </body>
 </html>
 """

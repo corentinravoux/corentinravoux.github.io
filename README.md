@@ -48,8 +48,19 @@ The left rail is a redshift axis: the sections run from z = 0 (peculiar velociti
 the local Universe) through the BAO and the Lyman-α tomographic map (z ≈ 2.5) to the
 one-dimensional power spectrum (z ≈ 2.2–4.2), which is the range the work actually
 spans. Every number in the research sections is taken from the HDR manuscript or the
-abstract of the paper it links to. Colours are sampled from the simulation image in the hero, with a
-single warm accent reused from the f(R) curves in the growth figures.
+abstract of the paper it links to.
+
+The page redshifts as you read: each research section carries a `--zmix` value,
+log(1 + z) / log(5.2), and its redshift label, the current rail tick and the rail's
+reading-progress fill are coloured between mint (z = 0) and orange (z ≈ 4) with
+`color-mix()`. The fill and the phone progress bar are CSS scroll-driven animations;
+`assets/js/rail.js` only uses IntersectionObserver (current tick, one-off scroll
+reveal), and everything degrades to static under `prefers-reduced-motion`.
+
+Two colour roles: mint for interactive ink (links, tool names), orange for emphasis
+(primary button, the major-contribution mark). Interactive elements are pills,
+containers use a 10 px radius. The site is dark only, on purpose: the background is
+the dark-matter field. Plots keep their white backgrounds on a soft "plate".
 
 Fonts are Newsreader (display), IBM Plex Sans (body) and IBM Plex Mono (labels),
-loaded from Google Fonts.
+loaded from Google Fonts. `404.html` is served by GitHub Pages for unknown paths.
