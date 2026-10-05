@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/cosmic-web.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/cosmic-web.webp" type="image/webp" fetchpriority="high">
 <link rel="canonical" href="https://corentinravoux.github.io/">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Corentin Ravoux, cosmologist at CNRS">
@@ -69,14 +69,14 @@
 <nav class="rail" aria-label="Sections, ordered by redshift">
   <span class="rail__fill" aria-hidden="true"></span>
   <span class="rail__label rail__label--top">today</span>
-  <a class="tick" href="#top"><span>z = 0</span></a>
-  <a class="tick" href="#velocities"><span>z ≈ 0.05</span></a>
-  <a class="tick" href="#anisotropy"><span>z ≈ 0.1</span></a>
-  <a class="tick" href="#bao"><span>z ≈ 0.3–2.3</span></a>
-  <a class="tick" href="#tomography"><span>z ≈ 2.5</span></a>
-  <a class="tick" href="#lya"><span>z ≈ 2.2–4.2</span></a>
-  <a class="tick" href="#code"><span>code</span></a>
-  <a class="tick" href="#papers"><span>papers</span></a>
+  <a class="tick" href="#top" aria-label="Top of the page, z = 0"><span>z = 0</span></a>
+  <a class="tick" href="#velocities" aria-label="Growth of structure, z ≈ 0.05"><span>z ≈ 0.05</span></a>
+  <a class="tick" href="#anisotropy" aria-label="Anisotropy and cosmic dipoles, z ≈ 0.1"><span>z ≈ 0.1</span></a>
+  <a class="tick" href="#bao" aria-label="Baryon acoustic oscillations, z ≈ 0.3 to 2.3"><span>z ≈ 0.3–2.3</span></a>
+  <a class="tick" href="#tomography" aria-label="Tomographic maps, z ≈ 2.5"><span>z ≈ 2.5</span></a>
+  <a class="tick" href="#lya" aria-label="Lyman-alpha forest power spectrum, z ≈ 2.2 to 4.2"><span>z ≈ 2.2–4.2</span></a>
+  <a class="tick" href="#code" aria-label="Software"><span>code</span></a>
+  <a class="tick" href="#papers" aria-label="Recent papers"><span>papers</span></a>
   <span class="rail__label rail__label--bottom">lookback</span>
 </nav>
 
@@ -84,8 +84,11 @@
 
   <header class="hero">
     <div class="hero__bg">
-      <img src="assets/img/cosmic-web.jpg" alt="" aria-hidden="true" width="2140" height="1204"
+      <picture>
+        <source type="image/webp" srcset="assets/img/cosmic-web.webp">
+        <img src="assets/img/cosmic-web.jpg" alt="" aria-hidden="true" width="2140" height="1204"
            fetchpriority="high" onerror="this.style.display='none'">
+      </picture>
     </div>
     <div class="wrap">
       <h1>Corentin<br>Ravoux</h1>
@@ -120,7 +123,7 @@
           November 2023. My work sits at two ends of the same axis: the local Universe, where
           supernova velocities measure how structure grows today, and the high-redshift
           intergalactic medium, where the Lyman-α forest measures the matter power spectrum on
-          the smallest scales cosmology can reach.</p>
+          some of the smallest scales accessible to cosmology.</p>
         <dl class="facts">
           <div>
             <dt>DESI</dt>
@@ -153,7 +156,7 @@
 
   <section id="velocities" class="sec" aria-labelledby="velocities-title">
     <div class="wrap sec__grid">
-      <p class="zmark"><span class="zmark__z">z ≈ 0.05</span><span class="zmark__what">the local Universe</span></p>
+      <p class="zmark"><span class="zmark__z">z ≈ 0.05</span><span class="visually-hidden">, </span><span class="zmark__what">the local Universe</span></p>
       <div class="sec__body">
         <div class="reveal">
           <h2 id="velocities-title">Growth of structure from peculiar velocities</h2>
@@ -180,9 +183,9 @@
               systematics.</p>
             <p>At that precision, photometric calibration takes over. With the AuxTel team I added
               Gaia spectra as standard stars for measuring the atmospheric transmission above the
-              Rubin Observatory, alongside the CALSPEC standards, and a master's internship
-              derived the corrections that bring the two into agreement. A paper is in
-              preparation.</p>
+              Rubin Observatory, alongside the CALSPEC standards, and a master's internship I
+              co-supervised derived corrections that remove most of the residual difference
+              between the two. A paper is in preparation.</p>
           </div>
           <figure class="reveal">
             <div class="plate">
@@ -203,7 +206,7 @@
 
   <section id="anisotropy" class="sec" aria-labelledby="anisotropy-title">
     <div class="wrap sec__grid">
-      <p class="zmark"><span class="zmark__z">z ≈ 0.1</span><span class="zmark__what">isotropy</span></p>
+      <p class="zmark"><span class="zmark__z">z ≈ 0.1</span><span class="visually-hidden">, </span><span class="zmark__what">isotropy</span></p>
       <div class="sec__body">
         <div class="reveal">
           <h2 id="anisotropy-title">Anisotropy and cosmic dipoles</h2>
@@ -213,23 +216,20 @@
         <div class="reveal">
           <dl class="results">
             <div class="result">
-              <dt class="visually-hidden">Error on the dipole amplitude</dt>
-              <dd><span class="result__value">0.33<span class="result__unit">km s⁻¹ Mpc⁻¹</span></span>
-                <span class="result__what">error on the H₀ dipole amplitude</span></dd>
+              <dt class="result__what">error on the H₀ dipole amplitude</dt>
+              <dd class="result__value">0.33<span class="result__unit">km s⁻¹ Mpc⁻¹</span></dd>
             </div>
             <div class="result">
-              <dt class="visually-hidden">Error on right ascension</dt>
-              <dd><span class="result__value">3.4°</span>
-                <span class="result__what">error on its right ascension</span></dd>
+              <dt class="result__what">error on its right ascension</dt>
+              <dd class="result__value">3.4°</dd>
             </div>
             <div class="result">
-              <dt class="visually-hidden">Error on declination</dt>
-              <dd><span class="result__value">6.1°</span>
-                <span class="result__what">error on its declination</span></dd>
+              <dt class="result__what">error on its declination</dt>
+              <dd class="result__value">6.1°</dd>
             </div>
           </dl>
           <p class="results-note">Recovery of a 3 km s⁻¹ Mpc⁻¹ dipole injected into realistic
-            simulations of the ZTF supernova sample.
+            simulations of the ZTF DR2 supernova sample.
             <a href="https://arxiv.org/abs/2601.11139">arXiv:2601.11139</a></p>
         </div>
         <div class="probes">
@@ -239,16 +239,17 @@
               expansion rate as a function of direction. With Chloé Barjou-Delayre, whose PhD I
               co-supervised, we built a likelihood fit of an H₀ dipole and tested it on realistic
               simulations of the ZTF sample: the injected dipole is recovered without bias,
-              whatever H₀ is assumed. Peculiar velocities are the main contaminant, because a
-              coherent bulk flow can mimic an expansion dipole.</p>
+              whatever H₀ is assumed. Peculiar velocities are a major contaminant, because a
+              coherent bulk flow can mimic an expansion dipole, and selection effects in the
+              survey add a systematic error that the error model includes.</p>
           </div>
           <div class="reveal">
             <h3>Source counts</h3>
             <p>Our motion should imprint a dipole of known amplitude on the number of distant
               sources across the sky. Radio galaxies and quasars do show a dipole in the direction
               of the CMB one, but larger than expected, by about 3σ to more than 5σ depending on
-              the catalogue and the analysis. With a master's student, I built a number-count
-              simulator to prepare this test for Rubin-LSST; a first look at DESI DR1 showed that
+              the catalogue and the analysis. With a master's student I co-supervised, we built a
+              simplified number-count simulator to prepare this test for Rubin-LSST; a first look at DESI DR1 showed that
               its incompleteness still dominates, so the spectroscopic test waits for the full
               survey.</p>
           </div>
@@ -259,7 +260,7 @@
 
   <section id="bao" class="sec" aria-labelledby="bao-title">
     <div class="wrap sec__grid">
-      <p class="zmark"><span class="zmark__z">z ≈ 0.3–2.3</span><span class="zmark__what">a standard ruler</span></p>
+      <p class="zmark"><span class="zmark__z">z ≈ 0.3–2.3</span><span class="visually-hidden">, </span><span class="zmark__what">a standard ruler</span></p>
       <div class="sec__body">
         <div class="reveal">
           <h2 id="bao-title">Baryon acoustic oscillations with DESI</h2>
@@ -281,8 +282,9 @@
         <div class="columns reveal">
           <p>Inside DESI I work on the Lyman-α side of that measurement, the catalogues and the
             analysis pipeline the forest correlations are built from, and I co-lead the Lyman-α
-            software topical group. That work runs through the DR1 and DR2 Lyman-α BAO analyses,
-            part of the measurement that now favours evolving dark energy.</p>
+            software topical group. That work runs through the DR1 and DR2 Lyman-α BAO analyses.
+            Combined with the CMB and supernovae, the DR2 BAO measurement prefers an evolving
+            dark energy over ΛCDM at 2.8σ to 4.2σ, depending on the supernova sample.</p>
           <p>How far does non-linear physics move the peak? On the ACCEL² simulations, which I
             co-initiated and co-lead, an effective-field-theory analysis led by R. de Belsunce
             found shifts of the BAO scale of at most 0.3%, for the forest auto-correlation and for
@@ -296,7 +298,7 @@
 
   <section id="tomography" class="sec" aria-labelledby="tomography-title">
     <div class="wrap sec__grid">
-      <p class="zmark"><span class="zmark__z">z ≈ 2.5</span><span class="zmark__what">the intergalactic medium in 3D</span></p>
+      <p class="zmark"><span class="zmark__z">z ≈ 2.5</span><span class="visually-hidden">, </span><span class="zmark__what">the intergalactic medium in 3D</span></p>
       <div class="sec__body reveal">
         <h2 id="tomography-title">Tomographic maps, and the voids inside them</h2>
         <p class="lede">Every distant quasar is a backlight: the neutral hydrogen between us and
@@ -344,12 +346,12 @@
 
   <section id="lya" class="sec" aria-labelledby="lya-title">
     <div class="wrap sec__grid">
-      <p class="zmark"><span class="zmark__z">z ≈ 2.2–4.2</span><span class="zmark__what">the intergalactic medium</span></p>
+      <p class="zmark"><span class="zmark__z">z ≈ 2.2–4.2</span><span class="visually-hidden">, </span><span class="zmark__what">the intergalactic medium</span></p>
       <div class="sec__body">
         <div class="reveal">
           <h2 id="lya-title">The Lyman-α forest power spectrum</h2>
           <p class="lede">Along each sightline, the forest traces the matter distribution down to
-            about a megaparsec, smaller scales than any galaxy survey can reach.</p>
+            about 1 h⁻¹ Mpc, smaller scales than any galaxy survey can reach.</p>
         </div>
         <figure class="figure--wide reveal">
           <div class="plate">
@@ -366,7 +368,8 @@
           <div class="reveal">
             <p>I lead the measurement of the one-dimensional Lyman-α power spectrum, P1D, with the
               Fast Fourier Transform estimator in DESI: first on the early data (26,330 quasar
-              spectra), then on Data Release 1. Together with an independent quadratic estimator,
+              spectra from the Early Data Release and the first two months of the survey), then
+              on Data Release 1. Together with an independent quadratic estimator,
               the DR1 measurement is the most precise P1D to date. It constrains the small-scale
               matter power spectrum and, through it, the running of the primordial spectral
               index, neutrino masses, warm dark matter and the thermal history of the
@@ -383,8 +386,9 @@
               (Jean Zay, Perlmutter, Frontier), from 25 h⁻¹ kpc resolution up to a 640 h⁻¹ Mpc box.
               It showed that the redshift-space parameter of the forest converges with resolution
               rather than box size, gave the first clear detection of the BAO peak in a
-              hydrodynamic simulation, and calibrates effective-field-theory models of the forest
-              to better than 2% up to k = 2 h Mpc⁻¹.</p>
+              hydrodynamic simulation, and is the reference against which an effective-field-theory
+              model of the forest was calibrated, fitting its power spectrum to better than 2% up
+              to k = 2 h Mpc⁻¹.</p>
           </aside>
         </div>
       </div>
@@ -395,7 +399,7 @@
     <div class="wrap">
       <div class="reveal">
         <h2 id="code-title">Code I build and maintain</h2>
-        <p>Each measurement above comes with its software. My packages are open, documented and
+        <p>Each measurement above comes with its software. My main packages are open, documented and
           versioned, with a licence and a Zenodo DOI; the collaboration code I contribute to, such
           as picca for the DESI Lyman-α analyses, is open too.</p>
       </div>

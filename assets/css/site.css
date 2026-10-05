@@ -110,8 +110,8 @@ sub, sup { line-height: 0; }
 }
 .rail::before { background: linear-gradient(180deg, var(--rule), var(--filament), var(--rule)); }
 .rail__fill {                       /* how far back you have read, light redshifting */
-  width: 2px; left: 25.5px; transform-origin: top; transform: scaleY(0); opacity: 0;
-  background: linear-gradient(180deg, var(--mint), var(--signal));
+  width: 2px; left: 25.5px; clip-path: inset(0 0 100% 0); opacity: 0;
+  background: linear-gradient(180deg, var(--mint), var(--signal));   /* fixed, revealed by clipping */
 }
 .rail__label {
   position: absolute; left: 18px; font-size: .62rem; letter-spacing: .14em;
@@ -135,8 +135,21 @@ sub, sup { line-height: 0; }
 /* the same reading progress, as a hairline across the top on narrow screens */
 .zbar {
   display: none; position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 30;
-  transform-origin: left; transform: scaleX(0);
+  clip-path: inset(0 100% 0 0);
   background: linear-gradient(90deg, var(--mint), var(--signal));
+}
+
+@supports (color: color-mix(in oklab, red, blue)) {
+  /* the rail fill takes each tick's own colour where it passes that tick
+     (tick positions measured along the fill: 7, 20, 32, 44, 56, 68 %) */
+  .rail__fill { background: linear-gradient(180deg,
+      var(--mint) 7%,
+      color-mix(in oklab, var(--mint), var(--signal) 4%) 20%,
+      color-mix(in oklab, var(--mint), var(--signal) 8%) 32%,
+      color-mix(in oklab, var(--mint), var(--signal) 50%) 44%,
+      color-mix(in oklab, var(--mint), var(--signal) 76%) 56%,
+      color-mix(in oklab, var(--mint), var(--signal) 92%) 68%,
+      var(--signal) 80%); }
 }
 
 @supports (animation-timeline: scroll()) {
@@ -145,8 +158,9 @@ sub, sup { line-height: 0; }
     .zbar { animation: fill-x linear both; animation-timeline: scroll(root); }
   }
 }
-@keyframes fill-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes fill-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* clipping, not scaling: each point of the gradient keeps its own redshift colour */
+@keyframes fill-y { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes fill-x { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 
 /* --------------------------------------------------------------------- layout */
 .page { margin-left: var(--rail); }
@@ -179,6 +193,7 @@ section { padding-block: 7.5rem 8rem; border-top: 1px solid var(--rule-soft); }
 }
 .hero__bg { position: absolute; inset: 0; z-index: 0;
   background: radial-gradient(120% 90% at 30% 40%, #10314a 0%, #071324 55%, var(--void) 100%); }
+.hero__bg picture { display: block; width: 100%; height: 100%; }
 .hero__bg img { width: 100%; height: 100%; object-fit: cover; opacity: .55; mix-blend-mode: screen; }
 .hero__bg::after {                  /* fade the field into the page */
   content: ""; position: absolute; inset: 0;
@@ -280,7 +295,8 @@ figcaption {
   display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr);
   margin: 2.8rem 0 0; border-block: 1px solid var(--rule);
 }
-.result { padding: 1.7rem 1.6rem 1.5rem 0; }
+.result { padding: 1.7rem 1.6rem 1.5rem 0; display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+.result dd { margin: 0; }
 .result + .result { padding-left: 1.6rem; border-left: 1px solid var(--rule-soft); }
 .result__value {
   display: block; font-family: var(--display); font-weight: 300; line-height: 1;
@@ -288,7 +304,7 @@ figcaption {
   font-variant-numeric: tabular-nums;
 }
 .result__unit { font-family: var(--mono); font-size: .8rem; color: var(--zc); margin-left: .35rem; letter-spacing: 0; }
-.result__what { display: block; margin-top: .7rem; font-family: var(--mono); font-size: .76rem; color: var(--muted); }
+.result__what { display: block; margin-top: .7rem; margin-bottom: 0; font-family: var(--mono); font-size: .76rem; color: var(--muted); }
 .results-note { font-family: var(--mono); font-size: .76rem; color: var(--muted); margin: .9rem 0 0; max-width: none; }
 
 .probes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 3.4rem; }
