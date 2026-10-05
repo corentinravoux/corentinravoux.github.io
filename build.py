@@ -5,8 +5,10 @@
     python3 build.py --offline  # rebuild from the cached data/publications.json
 
 The list is fetched once and cached, so the site can be rebuilt without network.
-Papers I led or co-led are flagged from LEAD_IDS below -- INSPIRE cannot know that,
-so it is the one thing kept by hand. Add an arXiv id there when a new one lands.
+Papers with a major contribution are flagged from LEAD_IDS below -- INSPIRE cannot
+know that, so it is the one thing kept by hand. The set mirrors the "Publications
+with a major contribution" list of the HDR manuscript; add an arXiv id there when a
+new one lands. The home page shows the most recent of these flagged papers.
 """
 import argparse
 import html
@@ -24,21 +26,36 @@ LEAD_IDS = {
     "2004.01448", "2012.04008", "2203.07886", "2203.11045", "2306.06311", "2306.06316",
     "2310.09116", "2405.03447", "2407.04473", "2412.06892", "2501.16852", "2505.09493",
     "2507.00157", "2509.13593", "2601.11139", "2601.21432", "2602.03382", "2604.09407",
+    "2609.34508",
 }
 
 # Typos in the upstream INSPIRE records. Reported there; corrected here meanwhile.
 TITLE_FIXES = {
     "ZTF type Iasupernovae": "ZTF type Ia supernovae",
+    "Kinematic Sunyae Zel'dovich": "Kinematic Sunyaev-Zel'dovich",
+    "Eboss": "eBOSS",
+    "Lymanα": "Lyman-α",
+    "Ly α": "Lyα",
+    "ACCEL2": "ACCEL²",
 }
+
+# Key papers signed by the collaboration as a whole (as in the HDR publication list);
+# INSPIRE lists them under the first alphabetical author instead.
+COLLAB_PAPERS = dict.fromkeys(
+    ["2205.10939", "2306.06307", "2306.06308", "2404.03000", "2404.03001", "2404.03002",
+     "2411.12020", "2411.12021", "2411.12022", "2503.14738", "2503.14739", "2503.14745",
+     "2607.27410"], "DESI Collaboration")
+COLLAB_PAPERS["2007.08991"] = "eBOSS Collaboration"
+
+# Same person, spelt two ways across INSPIRE records.
+AUTHOR_FIXES = {"Karaçayli": "Karaçaylı"}
 
 ROOT = Path(__file__).parent
 CACHE = ROOT / "data" / "publications.json"
 N_RECENT = 6
 
 
-def fetch(offline=False):
-    if offline or CACHE.exists() and offline:
-        return json.loads(CACHE.read_text())
+def fetch():
     with urllib.request.urlopen(API, timeout=60) as r:
         data = json.load(r)
     CACHE.parent.mkdir(exist_ok=True)
@@ -47,14 +64,15 @@ def fetch(offline=False):
 
 
 def tex_to_html(s):
-    """INSPIRE titles carry TeX fragments; render the few that actually occur."""
+    """INSPIRE titles carry TeX fragments and, for journal versions, MathML; render both."""
+    s = re.sub(r"<math[^>]*>(.*?)</math>", lambda m: re.sub(r"<[^>]+>", "", m.group(1)), s, flags=re.S)
     s = re.sub(r"\$?\\?alpha\$?", "α", s)
     s = re.sub(r"\$\\?beta\$", "β", s)
     s = re.sub(r"\$\\?sigma_?8?\$", "σ₈", s)
-    s = s.replace("$", "").replace("\\", "")
+    s = " ".join(s.replace("$", "").replace("\\", "").split())
     for wrong, right in TITLE_FIXES.items():
         s = s.replace(wrong, right)
-    return html.escape(" ".join(s.split()))
+    return html.escape(s)
 
 
 def journal(rec):
@@ -62,9 +80,11 @@ def journal(rec):
     title = pub.get("journal_title")
     if not title:
         return "preprint"
-    bits = [title]
+    bits = [title.replace(".", ". ").strip()]
     if pub.get("journal_volume"):
         bits.append(pub["journal_volume"])
+    if pub.get("year"):
+        bits.append(f"({pub['year']})")
     page = pub.get("artid") or pub.get("page_start")
     if page:
         bits.append(str(page))
@@ -85,7 +105,8 @@ def parse(data):
             arxiv=eid,
             journal=journal(m),
             n_authors=len(authors),
-            first=(authors[0]["full_name"].split(",")[0] if authors else ""),
+            corporate=COLLAB_PAPERS.get(eid, ""),
+            first=AUTHOR_FIXES.get(*[authors[0]["full_name"].split(",")[0]] * 2) if authors else "",
             lead=eid in LEAD_IDS,
         ))
     return out
@@ -94,7 +115,9 @@ def parse(data):
 def entry_html(p):
     link = f"https://arxiv.org/abs/{p['arxiv']}" if p["arxiv"] else "#"
     meta = p["journal"]
-    if p["n_authors"] > 12:
+    if p["corporate"]:
+        meta += f" · {p['corporate']} ({p['n_authors']} authors)"
+    elif p["n_authors"] > 12:
         meta += f" · {p['first']} et al. ({p['n_authors']} authors)"
     elif p["first"]:
         meta += f" · {p['first']} et al."
@@ -116,14 +139,14 @@ def write_publications(pubs):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publications — Corentin Ravoux</title>
-<meta name="description" content="Publication list of Corentin Ravoux, CNRS researcher at LPCA.">
+<meta name="description" content="Publication list of Corentin Ravoux, CNRS researcher at the Laboratoire de Physique de Clermont Auvergne (LPCA).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://corentinravoux.github.io/publications.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Publications — Corentin Ravoux">
-<meta property="og:description" content="Full publication list of Corentin Ravoux, CNRS researcher at LPCA, generated from INSPIRE-HEP.">
+<meta property="og:description" content="Full publication list of Corentin Ravoux, CNRS researcher at the Laboratoire de Physique de Clermont Auvergne, generated from INSPIRE-HEP.">
 <meta property="og:url" content="https://corentinravoux.github.io/publications.html">
 <meta property="og:image" content="https://corentinravoux.github.io/assets/img/cosmic-web.jpg">
 <meta property="og:site_name" content="Corentin Ravoux">
@@ -138,8 +161,8 @@ def write_publications(pubs):
     <div class="wrap">
       <div class="eyebrow">Publications</div>
       <h2>{len(pubs)} papers</h2>
-      <p>{lead} led or co-led, marked <span style="color:var(--signal)">●</span>. Generated from
-        INSPIRE-HEP; run <code>python3 build.py</code> to refresh.</p>
+      <p>{lead} with a major contribution from me, marked <span style="color:var(--signal)">●</span>.
+        The list is generated from INSPIRE-HEP and includes collaboration papers.</p>
       <div class="actions">
         <a class="btn" href="index.html">← Home</a>
         <a class="btn" href="https://inspirehep.net/authors/{INSPIRE_RECID}">INSPIRE-HEP</a>
@@ -160,7 +183,7 @@ def write_publications(pubs):
 def refresh_index(pubs):
     index = ROOT / "index.html"
     text = index.read_text()
-    recent = "\n".join(entry_html(p) for p in pubs[:N_RECENT])
+    recent = "\n".join(entry_html(p) for p in [p for p in pubs if p["lead"]][:N_RECENT])
     block = f'<!-- RECENT-PUBS -->\n      <ul class="pubs">\n{recent}\n      </ul>\n      <!-- /RECENT-PUBS -->'
     if "<!-- /RECENT-PUBS -->" in text:
         text = re.sub(r"<!-- RECENT-PUBS -->.*?<!-- /RECENT-PUBS -->", block, text, flags=re.S)
@@ -175,8 +198,12 @@ if __name__ == "__main__":
     args = ap.parse_args()
 
     raw = json.loads(CACHE.read_text()) if args.offline else fetch()
+    print(f"{raw['hits']['total']} INSPIRE records")
     pubs = parse(raw)
     write_publications(pubs)
     refresh_index(pubs)
-    print(f"{len(pubs)} publications ({sum(p['lead'] for p in pubs)} lead) "
+    missing = LEAD_IDS - {p["arxiv"] for p in pubs}
+    if missing:
+        print("LEAD_IDS not found on INSPIRE:", sorted(missing))
+    print(f"{len(pubs)} publications ({sum(p['lead'] for p in pubs)} major contribution) "
           f"-> publications.html, index.html refreshed")

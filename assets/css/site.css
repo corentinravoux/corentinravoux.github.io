@@ -124,6 +124,15 @@ p { max-width: var(--measure); }
 .portrait--empty { display: grid; place-items: center; background: var(--deep);
   font-family: var(--mono); font-size: .7rem; color: var(--muted); text-align: center; padding: 1rem; }
 
+/* roles, supervision, teaching: a quiet two-column list under the about text */
+.facts { display: grid; grid-template-columns: 9.5rem 1fr; gap: .6rem 1.4rem;
+  margin: 2rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+  max-width: var(--measure); font-size: .93rem; line-height: 1.55; }
+.facts dt { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--filament); padding-top: .22rem; }
+.facts dd { margin: 0; color: var(--muted); }
+.facts dd b { color: var(--paper); font-weight: 400; }
+
 /* ------------------------------------------------------------------- figures */
 figure { margin: 2.6rem 0 0; max-width: 640px; }
 figure img { width: 100%; display: block; border: 1px solid var(--rule); border-radius: 2px;
@@ -172,6 +181,8 @@ footer a { font-family: var(--mono); font-size: .85rem; }
   .page { margin-left: 0; }
   .about { grid-template-columns: 1fr; gap: 1.8rem; }
   .portrait { width: 160px; }
+  .facts { grid-template-columns: 1fr; gap: .1rem; }
+  .facts dd { margin-bottom: .7rem; }
   section { padding-block: 4.5rem; }
   .hero { min-height: 80vh; }
 }
