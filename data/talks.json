@@ -1,0 +1,278 @@
+{
+ "title": "Talks — Corentin Ravoux",
+ "generated": "2026-10-16T08:45:11+00:00",
+ "talks": [
+  {
+   "name": "2026-08_ede-2026-galaxy-observations-3",
+   "title": "EDE 2026 - GC 3/4",
+   "date": "2026-08",
+   "slides": 90,
+   "url": "2026-08_ede-2026-galaxy-observations-3/index.html",
+   "thumb": "2026-08_ede-2026-galaxy-observations-3/thumb.webp"
+  },
+  {
+   "name": "2026-07_p1d-group-2026",
+   "title": "Group P1D",
+   "date": "2026-07",
+   "slides": 54,
+   "url": "2026-07_p1d-group-2026/index.html",
+   "thumb": "2026-07_p1d-group-2026/thumb.webp"
+  },
+  {
+   "name": "2026-07_desi-durham-2026",
+   "title": "DESI summer meeting 2026",
+   "date": "2026-07",
+   "slides": 41,
+   "url": "2026-07_desi-durham-2026/index.html",
+   "thumb": "2026-07_desi-durham-2026/thumb.webp"
+  },
+  {
+   "name": "2026-06_ede-2026-galaxy-observations-4",
+   "title": "EDE 2026 - GC 4/4",
+   "date": "2026-06",
+   "slides": 78,
+   "url": "2026-06_ede-2026-galaxy-observations-4/index.html",
+   "thumb": "2026-06_ede-2026-galaxy-observations-4/thumb.webp"
+  },
+  {
+   "name": "2026-06_desi-pv-cross-ztf-jun26",
+   "title": "DESI transient group DESI ZTF ",
+   "date": "2026-06",
+   "slides": 57,
+   "url": "2026-06_desi-pv-cross-ztf-jun26/index.html",
+   "thumb": "2026-06_desi-pv-cross-ztf-jun26/thumb.webp"
+  },
+  {
+   "name": "2026-06_adecophy-2026-lyman-alpha-ravoux",
+   "title": "webinar Lyman-alpha and P1D jun 26",
+   "date": "2026-06",
+   "slides": 63,
+   "url": "2026-06_adecophy-2026-lyman-alpha-ravoux/index.html",
+   "thumb": "2026-06_adecophy-2026-lyman-alpha-ravoux/thumb.webp"
+  },
+  {
+   "name": "2026-03_flip-status-pv-meeting-march-26",
+   "title": "Flip status PV telecon march",
+   "date": "2026-03",
+   "slides": 14,
+   "url": "2026-03_flip-status-pv-meeting-march-26/index.html",
+   "thumb": "2026-03_flip-status-pv-meeting-march-26/thumb.webp"
+  },
+  {
+   "name": "2026-02_p3d-accel2-desi-595c0e",
+   "title": "ACCEL2 status",
+   "date": "2026-02",
+   "slides": 11,
+   "url": "2026-02_p3d-accel2-desi-595c0e/index.html",
+   "thumb": "2026-02_p3d-accel2-desi-595c0e/thumb.webp"
+  },
+  {
+   "name": "2026-02_miniag",
+   "title": "mini-ag feb 25",
+   "date": "2026-02",
+   "slides": 11,
+   "url": "2026-02_miniag/index.html",
+   "thumb": "2026-02_miniag/thumb.webp"
+  },
+  {
+   "name": "2025-12_pv-group-dec-25",
+   "title": "PV group presentation",
+   "date": "2025-12",
+   "slides": 64,
+   "url": "2025-12_pv-group-dec-25/index.html",
+   "thumb": "2025-12_pv-group-dec-25/thumb.webp"
+  },
+  {
+   "name": "2025-10_lpnhe-workshop-oct-25",
+   "title": "Synergetic workshop oct 25",
+   "date": "2025-10",
+   "slides": 61,
+   "url": "2025-10_lpnhe-workshop-oct-25/index.html",
+   "thumb": "2025-10_lpnhe-workshop-oct-25/thumb.webp"
+  },
+  {
+   "name": "2025-10_growth-ztf-meeting-oct-25",
+   "title": "DESI x ZTF ZTF meeting",
+   "date": "2025-10",
+   "slides": 35,
+   "url": "2025-10_growth-ztf-meeting-oct-25/index.html",
+   "thumb": "2025-10_growth-ztf-meeting-oct-25/thumb.webp"
+  },
+  {
+   "name": "2025-09_flip-desc-workshop-25",
+   "title": "Flip DESC Marseille 25",
+   "date": "2025-09",
+   "slides": 30,
+   "url": "2025-09_flip-desc-workshop-25/index.html",
+   "thumb": "2025-09_flip-desc-workshop-25/thumb.webp"
+  },
+  {
+   "name": "2025-07_lya-software-tg-lyaps",
+   "title": "lya general - MACSS 2023",
+   "date": "2025-07",
+   "slides": 56,
+   "url": "2025-07_lya-software-tg-lyaps/index.html",
+   "thumb": "2025-07_lya-software-tg-lyaps/thumb.webp"
+  },
+  {
+   "name": "2025-07_lya-general-ede-2025",
+   "title": "EDE 2025 - Lyman-alpha",
+   "date": "2025-07",
+   "slides": 77,
+   "url": "2025-07_lya-general-ede-2025/index.html",
+   "thumb": "2025-07_lya-general-ede-2025/thumb.webp"
+  },
+  {
+   "name": "2025-06_lya-teleconf-p1d-y1-cwr",
+   "title": "Lya software TG lyaps",
+   "date": "2025-06",
+   "slides": 8,
+   "url": "2025-06_lya-teleconf-p1d-y1-cwr/index.html",
+   "thumb": "2025-06_lya-teleconf-p1d-y1-cwr/thumb.webp"
+  },
+  {
+   "name": "2025-06_duke-seminar-july-25",
+   "title": "Duke seminar july 25",
+   "date": "2025-06",
+   "slides": 68,
+   "url": "2025-06_duke-seminar-july-25/index.html",
+   "thumb": "2025-06_duke-seminar-july-25/thumb.webp"
+  },
+  {
+   "name": "2025-04_lya-teleconf-p1d-y1-mocks-status",
+   "title": "Lya teleconf - P1D Y1 CWR",
+   "date": "2025-04",
+   "slides": 17,
+   "url": "2025-04_lya-teleconf-p1d-y1-mocks-status/index.html",
+   "thumb": "2025-04_lya-teleconf-p1d-y1-mocks-status/thumb.webp"
+  },
+  {
+   "name": "2025-04_desi-dr2-group",
+   "title": "DESI DR2 group meeting",
+   "date": "2025-04",
+   "slides": 23,
+   "url": "2025-04_desi-dr2-group/index.html",
+   "thumb": "2025-04_desi-dr2-group/thumb.webp"
+  },
+  {
+   "name": "2025-03_flip-webinar-adecophy-25",
+   "title": "flip webinar april 25",
+   "date": "2025-03",
+   "slides": 65,
+   "url": "2025-03_flip-webinar-adecophy-25/index.html",
+   "thumb": "2025-03_flip-webinar-adecophy-25/thumb.webp"
+  },
+  {
+   "name": "2025-01_flip-and-applications",
+   "title": "Flip Cosmic Flows 25",
+   "date": "2025-01",
+   "slides": 24,
+   "url": "2025-01_flip-and-applications/index.html",
+   "thumb": "2025-01_flip-and-applications/thumb.webp"
+  },
+  {
+   "name": "2025-01_desi-x-ztf-d9b144",
+   "title": "Flip and applications",
+   "date": "2025-01",
+   "slides": 16,
+   "url": "2025-01_desi-x-ztf-d9b144/index.html",
+   "thumb": "2025-01_desi-x-ztf-d9b144/thumb.webp"
+  },
+  {
+   "name": "2025-01_desi-desc",
+   "title": "DESI-II telecon",
+   "date": "2025-01",
+   "slides": 15,
+   "url": "2025-01_desi-desc/index.html",
+   "thumb": "2025-01_desi-desc/thumb.webp"
+  },
+  {
+   "name": "2024-12_ede-2024",
+   "title": "Lycée",
+   "date": "2024-12",
+   "slides": 22,
+   "url": "2024-12_ede-2024/index.html",
+   "thumb": "2024-12_ede-2024/thumb.webp"
+  },
+  {
+   "name": "2024-12_desi_ztf",
+   "title": "DESI x ZTF",
+   "date": "2024-12",
+   "slides": 16,
+   "url": "2024-12_desi_ztf/index.html",
+   "thumb": "2024-12_desi_ztf/thumb.webp"
+  },
+  {
+   "name": "2024-12_desi-x-ztf",
+   "title": "flip general",
+   "date": "2024-12",
+   "slides": 26,
+   "url": "2024-12_desi-x-ztf/index.html",
+   "thumb": "2024-12_desi-x-ztf/thumb.webp"
+  },
+  {
+   "name": "2024-11_p1d-general-edr",
+   "title": "P1D general",
+   "date": "2024-11",
+   "slides": 33,
+   "url": "2024-11_p1d-general-edr/index.html",
+   "thumb": "2024-11_p1d-general-edr/thumb.webp"
+  },
+  {
+   "name": "2024-11_lya-teleconf-p1d-y1-status",
+   "title": "Lya teleconf - P1D Y1 mocks status",
+   "date": "2024-11",
+   "slides": 10,
+   "url": "2024-11_lya-teleconf-p1d-y1-status/index.html",
+   "thumb": "2024-11_lya-teleconf-p1d-y1-status/thumb.webp"
+  },
+  {
+   "name": "2024-11_lya-teleconf-ceea9e",
+   "title": "Lya teleconf - P1D Y1 status",
+   "date": "2024-11",
+   "slides": 13,
+   "url": "2024-11_lya-teleconf-ceea9e/index.html",
+   "thumb": "2024-11_lya-teleconf-ceea9e/thumb.webp"
+  },
+  {
+   "name": "2024-11_jrjc-2024",
+   "title": "JRJC 2024",
+   "date": "2024-11",
+   "slides": 24,
+   "url": "2024-11_jrjc-2024/index.html",
+   "thumb": "2024-11_jrjc-2024/thumb.webp"
+  },
+  {
+   "name": "2024-07_p3d-accel2-desi",
+   "title": "EDE 2024",
+   "date": "2024-07",
+   "slides": 143,
+   "url": "2024-07_p3d-accel2-desi/index.html",
+   "thumb": "2024-07_p3d-accel2-desi/thumb.webp"
+  },
+  {
+   "name": "2024-07_p3d-accel2",
+   "title": "P3D ACCEL2 DESI",
+   "date": "2024-07",
+   "slides": 26,
+   "url": "2024-07_p3d-accel2/index.html",
+   "thumb": "2024-07_p3d-accel2/thumb.webp"
+  },
+  {
+   "name": "2024-05_lya-teleconf",
+   "title": "DESI General",
+   "date": "2024-05",
+   "slides": 58,
+   "url": "2024-05_lya-teleconf/index.html",
+   "thumb": "2024-05_lya-teleconf/thumb.webp"
+  },
+  {
+   "name": "2024-04_deck",
+   "title": "Lya teleconf - cross-exposure",
+   "date": "2024-04",
+   "slides": 13,
+   "url": "2024-04_deck/index.html",
+   "thumb": "2024-04_deck/thumb.webp"
+  }
+ ]
+}

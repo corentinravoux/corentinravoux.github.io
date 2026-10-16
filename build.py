@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate the publication list from INSPIRE-HEP.
+"""Regenerate the publication list from INSPIRE-HEP, and the talk list from opendeck-decks.
 
-    python3 build.py            # fetch, write publications.html, refresh index.html
-    python3 build.py --offline  # rebuild from the cached data/publications.json
+    python3 build.py            # fetch, write publications.html + talks.html, refresh index.html
+    python3 build.py --offline  # rebuild from the cached data/publications.json + data/talks.json
+
+The talks are the decks published by opendeck to corentinravoux/opendeck-decks, served next to
+this site under /opendeck-decks/: its talks.json lists them (title, date, first-slide thumbnail).
 
 The list is fetched once and cached, so the site can be rebuilt without network.
 Papers with a major contribution are flagged from LEAD_IDS below -- INSPIRE cannot
@@ -54,6 +57,11 @@ AUTHOR_FIXES = {"Karaçayli": "Karaçaylı"}
 ROOT = Path(__file__).parent
 CACHE = ROOT / "data" / "publications.json"
 N_RECENT = 6
+
+DECKS = "https://corentinravoux.github.io/opendeck-decks/"
+TALKS_CACHE = ROOT / "data" / "talks.json"
+N_RECENT_TALKS = 6
+MONTHS = "January February March April May June July August September October November December".split()
 
 
 def fetch():
@@ -216,10 +224,103 @@ def refresh_index(pubs):
     index.write_text(text)
 
 
+def fetch_talks():
+    with urllib.request.urlopen(DECKS + "talks.json", timeout=60) as r:
+        data = json.loads(r.read().decode())
+    TALKS_CACHE.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
+    return data
+
+
+def talk_html(t, indent="    "):
+    y, m = t["date"][:4], int(t["date"][5:7])
+    thumb = (f'<img src="{DECKS}{html.escape(t["thumb"])}" alt="" width="640" height="360" loading="lazy">'
+             if t.get("thumb") else "")
+    return (f'{indent}<li><a class="talk" href="{DECKS}{html.escape(t["url"])}">\n'
+            f'{indent}  <span class="talk__thumb">{thumb}</span>\n'
+            f'{indent}  <span class="talk__title">{html.escape(t["title"])}</span>\n'
+            f'{indent}  <span class="talk__meta">{MONTHS[m - 1]} {y} · {t["slides"]} slides</span></a></li>')
+
+
+def write_talks(talks):
+    years, body = [], []
+    for t in talks:
+        y = t["date"][:4]
+        if y not in years:
+            if years:
+                body.append("      </ul>")
+            years.append(y)
+            body.append(f'      <h2 class="talks__year" id="y{y}">{y}</h2>\n      <ul class="talks">')
+        body.append(talk_html(t, "        "))
+    if years:
+        body.append("      </ul>")
+    jump = " ".join(f'<a class="link-quiet" href="#y{y}">{y}</a>' for y in years)
+    page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talks, Corentin Ravoux</title>
+<meta name="description" content="Slides of the talks of Corentin Ravoux, CNRS researcher at the Laboratoire de Physique de Clermont Auvergne (LPCA): seminars, conferences, schools and collaboration meetings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://corentinravoux.github.io/talks.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Talks, Corentin Ravoux">
+<meta property="og:description" content="Slides of the talks of Corentin Ravoux: seminars, conferences, schools and collaboration meetings. Each one opens in the browser.">
+<meta property="og:url" content="https://corentinravoux.github.io/talks.html">
+<meta property="og:image" content="https://corentinravoux.github.io/assets/img/cosmic-web.jpg">
+<meta property="og:site_name" content="Corentin Ravoux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Corentin Ravoux">
+<meta name="theme-color" content="#060d18">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='none' stroke='%2386e0b4' stroke-width='2'/><circle cx='16' cy='16' r='2' fill='%23f77f00'/></svg>">
+</head>
+<body>
+<a class="skip" href="#list">Skip to the talks</a>
+<main class="page page--plain">
+  <section aria-labelledby="talks-title">
+    <div class="wrap">
+      <a class="link-quiet" href="index.html">Back to the home page</a>
+      <h1 id="talks-title">Talks</h1>
+      <p>{len(talks)} talks: seminars, conferences, schools and collaboration meetings. Each one opens
+        in the browser; use the arrow keys to move through the slides. They are made with
+        <a class="link-quiet" href="https://github.com/corentinravoux/opendeck">opendeck</a>.</p>
+      <nav class="talks__jump" aria-label="Years">{jump}</nav>
+      <div id="list">
+{chr(10).join(body)}
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
+"""
+    (ROOT / "talks.html").write_text(page)
+
+
+def refresh_index_talks(talks):
+    index = ROOT / "index.html"
+    text = index.read_text()
+    recent = "\n".join(talk_html(t) for t in talks[:N_RECENT_TALKS])
+    block = f'<!-- RECENT-TALKS -->\n      <ul class="talks">\n{recent}\n      </ul>\n      <!-- /RECENT-TALKS -->'
+    text = re.sub(r"<!-- RECENT-TALKS -->.*?<!-- /RECENT-TALKS -->", block, text, flags=re.S)
+    text = re.sub(r'(<a class="btn btn--primary" href="talks.html">)All \d+ talks(</a>)',
+                  rf"\g<1>All {len(talks)} talks\g<2>", text)
+    index.write_text(text)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--offline", action="store_true", help="use data/publications.json")
+    ap.add_argument("--offline", action="store_true", help="use data/publications.json and data/talks.json")
     args = ap.parse_args()
+
+    talks = (json.loads(TALKS_CACHE.read_text()) if args.offline else fetch_talks())["talks"]
+    talks.sort(key=lambda t: t["name"], reverse=True)
+    write_talks(talks)
+    refresh_index_talks(talks)
+    print(f"{len(talks)} talks -> talks.html, index.html refreshed")
 
     raw = json.loads(CACHE.read_text()) if args.offline else fetch()
     print(f"{raw['hits']['total']} INSPIRE records")
