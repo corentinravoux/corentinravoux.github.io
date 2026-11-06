@@ -1,7 +1,14 @@
 {
  "title": "Talks — Corentin Ravoux",
- "generated": "2026-10-16T08:45:11+00:00",
  "talks": [
+  {
+   "name": "2026-11_flip-status-eft-telecon-nov-26",
+   "title": "Flip status EFT telecon nov 26",
+   "date": "2026-11",
+   "slides": 7,
+   "url": "2026-11_flip-status-eft-telecon-nov-26/index.html",
+   "thumb": "2026-11_flip-status-eft-telecon-nov-26/thumb.webp"
+  },
   {
    "name": "2026-08_ede-2026-galaxy-observations-3",
    "title": "EDE 2026 - GC 3/4",

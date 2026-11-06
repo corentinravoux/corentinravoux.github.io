@@ -4,8 +4,8 @@
     python3 build.py            # fetch, write publications.html + talks.html, refresh index.html
     python3 build.py --offline  # rebuild from the cached data/publications.json + data/talks.json
 
-The talks are the decks published by opendeck to corentinravoux/opendeck-decks, served next to
-this site under /opendeck-decks/: its talks.json lists them (title, date, first-slide thumbnail).
+The talks are the decks published by opendeck to the Cloudflare Worker ravoux-talks (DECKS below):
+its talks.json lists them (title, date, first-slide thumbnail).
 
 The list is fetched once and cached, so the site can be rebuilt without network.
 Papers with a major contribution are flagged from LEAD_IDS below -- INSPIRE cannot
@@ -58,7 +58,7 @@ ROOT = Path(__file__).parent
 CACHE = ROOT / "data" / "publications.json"
 N_RECENT = 6
 
-DECKS = "https://corentinravoux.github.io/opendeck-decks/"
+DECKS = "https://ravoux-talks.opendeck-decks.workers.dev/"
 TALKS_CACHE = ROOT / "data" / "talks.json"
 N_RECENT_TALKS = 6
 MONTHS = "January February March April May June July August September October November December".split()
@@ -225,7 +225,9 @@ def refresh_index(pubs):
 
 
 def fetch_talks():
-    with urllib.request.urlopen(DECKS + "talks.json", timeout=60) as r:
+    # Cloudflare refuses urllib's default User-Agent (error 1010)
+    req = urllib.request.Request(DECKS + "talks.json", headers={"User-Agent": "website-build/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
         data = json.loads(r.read().decode())
     TALKS_CACHE.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
     return data
