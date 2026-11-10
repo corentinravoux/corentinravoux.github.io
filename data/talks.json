@@ -2,6 +2,14 @@
  "title": "Talks — Corentin Ravoux",
  "talks": [
   {
+   "name": "2026-11_flip-v2-1-0",
+   "title": "flip v2.1.0",
+   "date": "2026-11",
+   "slides": 5,
+   "url": "2026-11_flip-v2-1-0/index.html",
+   "thumb": "2026-11_flip-v2-1-0/thumb.webp"
+  },
+  {
    "name": "2026-11_flip-status-eft-telecon-nov-26",
    "title": "Flip status EFT telecon nov 26",
    "date": "2026-11",
